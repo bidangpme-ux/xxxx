@@ -1,0 +1,49 @@
+name: warung-rimbun
+
+services:
+  app:
+    image: warung-rimbun:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: warung-rimbun
+    restart: always
+    ports:
+      # Port luar CasaOS: 3080 (agar tidak bentrok dengan port 3000 milik aplikasi lain)
+      - "3080:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATA_DIR=/app/data
+      # CATATAN POSTGRESQL:
+      # Anda TIDAK PERLU menyetel PostgreSQL. Sistem otomatis menggunakan 
+      # Persistent Storage di folder ./data/db.json yang aman & permanen.
+      # Jika di kemudian hari ingin pakai PostgreSQL, cukup isi DATABASE_URL di bawah:
+      # - DATABASE_URL=postgres://user:password@host:5432/dbname
+    volumes:
+      # Database JSON persisten (tersimpan aman meski listrik mati / container di-restart)
+      - ./data:/app/data
+    # Metadata otomatis untuk CasaOS App Store / UI
+    x-casaos:
+      architectures:
+        - amd64
+        - arm64
+        - arm
+      main: app
+      description:
+        en_us: "Wadah Urun Rembuk Perencanaan dan Inovasi Pembangunan - BAPPERIDA Kabupaten Tanggamus"
+        id_id: "Wadah Urun Rembuk Perencanaan dan Inovasi Pembangunan - BAPPERIDA Kabupaten Tanggamus"
+      tagline:
+        en_us: "Platform publikasi kegiatan, galeri foto dokumentasi, dan jurnal aksi pembangunan"
+        id_id: "Platform publikasi kegiatan, galeri foto dokumentasi, dan jurnal aksi pembangunan"
+      developer: "BAPPERIDA Kabupaten Tanggamus"
+      author: "yodestawibowo"
+      icon: "https://raw.githubusercontent.com/yodestawibowo/rmb7/main/public/logo.jpeg"
+      thumbnail: "https://raw.githubusercontent.com/yodestawibowo/rmb7/main/public/logo.jpeg"
+      title:
+        en_us: "Warung Rimbun"
+        id_id: "Warung Rimbun"
+      index: /
+      port_map: "3080"
+      scheme: http
+      category: Productivity

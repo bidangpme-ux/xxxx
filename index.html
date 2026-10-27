@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Warung Rimbun - Wadah Urun Rembuk Perencanaan &amp; Inovasi Pembangunan</title>
+    <meta name="description" content="Warung Rimbun (Wadah Urun Rembuk Perencanaan dan Inovasi Pembangunan) BAPPERIDA Kabupaten Tanggamus. Platform publikasi kegiatan, galeri foto dokumentasi, dan jurnal aksi pembangunan." />
+    <meta property="og:title" content="Warung Rimbun - Wadah Urun Rembuk Perencanaan &amp; Inovasi Pembangunan" />
+    <meta property="og:description" content="Warung Rimbun (Wadah Urun Rembuk Perencanaan dan Inovasi Pembangunan) BAPPERIDA Kabupaten Tanggamus. Dari Gagasan, Menjadi Rencana dan Aksi Pembangunan." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/logo.jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
+
+    <!-- Gracefully handle Vite HMR WebSocket in preview iframe -->
+    <script>
+      (function() {
+        const NativeWebSocket = window.WebSocket;
+        if (!NativeWebSocket) return;
+
+        window.WebSocket = function(url, protocols) {
+          const isViteHmr =
+            protocols === 'vite-hmr' ||
+            (Array.isArray(protocols) && protocols.includes('vite-hmr')) ||
+            (typeof url === 'string' && (url.includes('token=') || url.includes('/@vite')));
+
+          if (isViteHmr) {
+            const listeners = {};
+            const fakeSocket = {
+              readyState: 1, // OPEN
+              OPEN: 1,
+              CLOSED: 3,
+              CLOSING: 2,
+              CONNECTING: 0,
+              url: String(url),
+              protocol: 'vite-hmr',
+              extensions: '',
+              bufferedAmount: 0,
+              binaryType: 'blob',
+              send: function() {},
+              close: function() {
+                fakeSocket.readyState = 3;
+                if (typeof fakeSocket.onclose === 'function') {
+                  fakeSocket.onclose({ code: 1000, reason: 'closed', wasClean: true });
+                }
+                (listeners['close'] || []).forEach(function(fn) {
+                  fn({ code: 1000, reason: 'closed', wasClean: true });
+                });
+              },
+              addEventListener: function(event, callback) {
+                listeners[event] = listeners[event] || [];
+                listeners[event].push(callback);
+                if (event === 'open') {
+                  setTimeout(function() {
+                    if (typeof callback === 'function') callback({ type: 'open' });
+                  }, 0);
+                }
+              },
+              removeEventListener: function(event, callback) {
+                if (listeners[event]) {
+                  listeners[event] = listeners[event].filter(function(cb) { return cb !== callback; });
+                }
+              },
+              dispatchEvent: function() { return true; },
+            };
+
+            setTimeout(function() {
+              if (typeof fakeSocket.onopen === 'function') {
+                fakeSocket.onopen({ type: 'open' });
+              }
+            }, 0);
+
+            return fakeSocket;
+          }
+
+          return new NativeWebSocket(url, protocols);
+        };
+
+        window.WebSocket.prototype = NativeWebSocket.prototype;
+        window.WebSocket.CONNECTING = NativeWebSocket.CONNECTING;
+        window.WebSocket.OPEN = NativeWebSocket.OPEN;
+        window.WebSocket.CLOSING = NativeWebSocket.CLOSING;
+        window.WebSocket.CLOSED = NativeWebSocket.CLOSED;
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-neutral-50 text-neutral-900 antialiased selection:bg-emerald-700 selection:text-white">
+    <script>
+      // Early protection: block DevTools shortcut keys while keeping right-click fully enabled
+      window.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || e.keyCode === 123) {
+          e.preventDefault();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) {
+          e.preventDefault();
+        }
+        if ((e.ctrlKey || e.metaKey) && ['U', 'u'].includes(e.key)) {
+          e.preventDefault();
+        }
+      }, true);
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

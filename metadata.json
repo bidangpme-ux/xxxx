@@ -1,0 +1,6 @@
+{
+  "name": "Warung Rimbun - Wadah Urun Rembuk Perencanaan & Inovasi Pembangunan",
+  "description": "Warung Rimbun (Wadah Urun Rembuk Perencanaan dan Inovasi Pembangunan) BAPPERIDA Kabupaten Tanggamus. Platform publikasi kegiatan, galeri foto dokumentasi, dan jurnal aksi pembangunan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
